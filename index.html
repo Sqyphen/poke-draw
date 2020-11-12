@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Poké-draw</title>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
+	<style type="text/css">
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			font-family: 'Ubuntu', sans-serif;
+			overflow-x: hidden;
+		}
+		button {
+			font-size: 1.5em;
+			display: block;
+			height: 50px;
+			width: 80%;
+			margin: 0 auto;
+			color: black;
+			border: 2px solid black;
+		}
+		.randomButton {
+			background-color: yellow;
+		}
+		.showButton{
+			background-color: orange;
+		}
+		#nameBox p {
+			font-size: 40px;
+			margin: 0 auto;
+			display: block;
+			padding: 20px 0;
+			text-align: center;
+		}
+		#pokemonBox img {
+			display: block;
+			margin: 0 auto;
+			width: 100vw;
+			max-width: 85vh;
+		}
+		.hidden {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+ <button class="randomButton" onclick="showName()">Random</button>
+
+ <div id="nameBox" class="hidden">
+ 	<p></p>
+ 	<button class="showButton" onclick="showPokemon()" >Show Pokémon</button>
+ </div>
+
+ <div id="pokemonBox" class="hidden">
+ 	<img src="">
+ </div>
+
+ <script type="text/javascript" src="pokemon-name-list.js"></script>
+ <script type="text/javascript">
+ 	const pokemon = pokemonNameList;
+ 	const showButton = document.querySelector('.showButton');
+ 	const nameBox = document.querySelector('#nameBox');
+ 	const name = document.querySelector('#nameBox p');
+ 	const image = document.querySelector('#pokemonBox img');
+
+ 	const maxPokemon = 151;
+ 	let activePokemon = 0;
+
+ 	function showName(){
+ 		activePokemon = Math.floor(Math.random() * maxPokemon);
+
+ 		name.innerHTML = pokemon[activePokemon].name;
+
+ 		showIt(nameBox);
+ 		showIt(showButton);
+ 		hideIt(pokemonBox);
+ 	}
+
+ 	function showPokemon(){
+		image.src = pokemonImage(pokemon[activePokemon].id);
+
+		hideIt(showButton);
+ 		showIt(pokemonBox);
+ 	}
+
+ 	function pokemonImage(number){
+ 		return `./images/${paddedNumber(number)}.png`;
+ 	}
+
+ 	function paddedNumber(number) {
+ 		return String(number).padStart(3, '0');
+ 	}
+
+ 	function hideIt(it){
+ 		it.classList.add("hidden");
+ 	}
+
+ 	function showIt(it){
+ 		it.classList.remove("hidden");
+ 	}
+ </script>
+</body>
+</html>
